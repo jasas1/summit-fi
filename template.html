@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>summit-fi &mdash; reference tracks for critical listening</title>
+<meta name="description" content="A curated library of __TOTAL__ reference tracks for high-end headphone systems, scored on voice, soundstage, dynamics, bass, transients and timbre, with Qobuz links and downloadable playlists.">
+<meta name="color-scheme" content="dark">
+<meta property="og:title" content="summit-fi — reference tracks">
+<meta property="og:description" content="__TOTAL__ reference tracks for a summit-fi rig, ranked by what each one reveals. Downloadable playlists and Qobuz links.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230c0d10'/%3E%3Cpath d='M6 22 L16 8 L26 22 Z' fill='none' stroke='%23e6b45c' stroke-width='2.4' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
+<style>
+:root{
+  --bg:#0c0d10;--surface:#14161b;--surface2:#1b1e25;--raised:#22262f;
+  --border:#282d38;--border2:#343b48;
+  --text:#eceef2;--muted:#a2a8b4;--faint:#727988;
+  --gold:#e6b45c;--gold-dim:#c99640;--teal:#7bb5a8;--ink:#241a08;
+  --serif:"Fraunces",Georgia,serif;--sans:"Hanken Grotesk",system-ui,sans-serif;--mono:"Space Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.5}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:
+  radial-gradient(1100px 560px at 80% -10%,rgba(230,180,92,.10),transparent 60%),
+  radial-gradient(820px 480px at -5% 0%,rgba(123,181,168,.06),transparent 55%);}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+a{color:var(--gold);text-decoration:none}
+a:hover{color:#f2ca7e}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:6px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--gold);color:var(--ink);padding:10px 16px;border-radius:8px;font-weight:700}
+.skip:focus{left:16px;top:16px;z-index:10}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.brand{display:flex;align-items:baseline;gap:12px}
+.mark{font-family:var(--serif);font-weight:900;font-size:25px;letter-spacing:-.02em}
+.mark .peak{color:var(--gold)}.mark b{color:var(--gold)}
+.tagsm{font-size:13px;color:var(--muted)}
+
+.hero{padding:60px 0 40px}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:0 0 18px}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(34px,6vw,56px);line-height:1.05;letter-spacing:-.02em;margin:0 0 18px;max-width:17ch}
+h1 em{font-style:italic;color:var(--gold)}
+.lede{font-size:clamp(16px,2.4vw,19px);line-height:1.6;color:var(--muted);max-width:60ch;margin:0}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:8px 15px;font-size:13px;color:var(--muted)}
+.stat b{color:var(--text);font-weight:600}
+
+.section{padding:44px 0;border-top:1px solid var(--border)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin:0 0 6px}
+h2{font-family:var(--serif);font-weight:600;font-size:clamp(24px,4vw,30px);letter-spacing:-.01em;margin:0 0 8px}
+.sub{color:var(--muted);font-size:15px;margin:0 0 24px;max-width:64ch}
+
+.dlbig{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;background:linear-gradient(180deg,var(--surface2),var(--surface));border:1px solid var(--border2);border-radius:16px;padding:22px 24px}
+.dlbig .lbl{font-family:var(--serif);font-size:21px;font-weight:600}
+.dlbig .meta{color:var(--muted);font-size:14px;margin-top:3px}
+.btn{display:inline-flex;align-items:center;gap:9px;background:var(--gold);color:var(--ink);font-weight:700;font-size:15px;border:none;border-radius:10px;padding:12px 18px;white-space:nowrap;font-family:inherit;cursor:pointer}
+.btn:hover{background:#f2ca7e;color:var(--ink)}
+.btn svg{width:16px;height:16px}
+.btn.ghost{background:transparent;color:var(--gold);border:1px solid var(--border2)}
+.btn.ghost:hover{background:var(--raised);color:#f2ca7e}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.chip{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);color:var(--text);border-radius:10px;padding:10px 14px;font-size:14px;font-weight:500}
+.chip:hover{border-color:var(--gold-dim);color:#f2ca7e}
+.chip .c{color:var(--faint);font-family:var(--mono);font-size:12px}
+.note{color:var(--faint);font-size:13.5px;margin-top:18px;line-height:1.55}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px 20px;display:flex;flex-direction:column}
+.card h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:0 0 3px}
+.card .desc{color:var(--muted);font-size:13px;line-height:1.5;margin:0 0 16px;min-height:52px}
+.tl{list-style:none;margin:0 0 18px;padding:0;flex-grow:1}
+.tl li{display:flex;gap:11px;padding:7px 0;border-bottom:1px solid var(--border);font-size:14px}
+.tl li:last-child{border-bottom:none}
+.tl .rk{font-family:var(--mono);font-size:12px;color:var(--gold);width:20px;flex-shrink:0}
+.tl .tt{color:var(--text);font-weight:500}
+.tl .ar{color:var(--faint);font-size:12.5px}
+
+.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:16px}
+.search{flex-grow:1;min-width:200px;position:relative}
+.search input{width:100%;background:var(--surface);border:1px solid var(--border2);border-radius:10px;color:var(--text);font-size:15px;font-family:inherit;padding:12px 14px 12px 40px}
+.search input::placeholder{color:var(--faint)}
+.search input:focus{outline:none;border-color:var(--gold-dim)}
+.search svg{position:absolute;left:13px;top:12px;width:17px;height:17px;color:var(--faint)}
+.pfsel{display:flex;border:1px solid var(--border2);border-radius:9px;overflow:hidden}
+.pfsel button{background:var(--surface);border:none;color:var(--muted);padding:10px 13px;font-size:13px;font-weight:600;border-right:1px solid var(--border2);font-family:inherit;cursor:pointer}
+.pfsel button:last-child{border-right:none}
+.pfsel button[aria-pressed=true]{background:var(--raised);color:var(--gold)}
+.gfilter{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
+.gf{background:var(--surface);border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:8px 12px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer}
+.gf:hover{color:var(--text);border-color:var(--border2)}
+.gf[aria-pressed=true]{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.gf .c{opacity:.6}
+
+.tablecard{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.tscroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:720px}
+thead th{background:var(--surface2);text-align:left;padding:0;border-bottom:1px solid var(--border2)}
+thead th button{width:100%;background:none;border:none;color:var(--muted);font-weight:600;font-size:12px;letter-spacing:.04em;text-transform:uppercase;text-align:left;padding:13px 14px;display:flex;align-items:center;gap:6px;font-family:inherit;cursor:pointer}
+thead th button:hover{color:var(--text)}
+thead th.num button{justify-content:flex-end}
+thead th .ar{color:var(--gold);font-size:11px;min-width:8px}
+tbody td{padding:12px 14px;border-bottom:1px solid var(--border);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--surface2)}
+.ti{color:var(--text);font-weight:600}
+.al{color:var(--faint);font-size:12px;margin-top:2px}
+.lf{color:var(--muted);font-size:12.5px;margin-top:5px;max-width:44ch;line-height:1.45}
+.arname{color:var(--muted);white-space:nowrap}
+.gtag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:3px 8px;border-radius:6px;background:var(--raised);color:var(--muted)}
+.best{color:var(--teal);font-size:13px;white-space:nowrap}
+.sc{font-family:var(--mono);font-weight:700;color:var(--text);text-align:right}
+.num{text-align:right}
+.qb{display:inline-flex;align-items:center;gap:6px;color:var(--gold);font-size:13px;font-weight:600;white-space:nowrap}
+.qb svg{width:13px;height:13px}
+.count{color:var(--faint);font-size:13px;margin:14px 2px 0;font-family:var(--mono)}
+.empty{padding:40px;text-align:center;color:var(--faint)}
+
+.foot{padding:48px 0 64px;border-top:1px solid var(--border);color:var(--muted);font-size:14px;line-height:1.65}
+.foot h4{font-family:var(--serif);color:var(--text);font-size:17px;margin:0 0 8px}
+.foot .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:32px;margin-bottom:28px}
+.foot code{font-family:var(--mono);font-size:12.5px;background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:2px 6px;color:var(--gold)}
+.foot .fine{color:var(--faint);font-size:12.5px;border-top:1px solid var(--border);padding-top:18px}
+@media (max-width:560px){.hero{padding:40px 0 32px}.section{padding:36px 0}.dlbig{flex-direction:column;align-items:flex-start}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<a class="skip" href="#library">Skip to the track table</a>
+<div class="wrap">
+
+<header class="topbar">
+  <div class="brand">
+    <span class="mark">summit<span class="peak">&#9650;</span><b>fi</b></span>
+    <span class="tagsm">reference tracks for a summit-fi rig</span>
+  </div>
+  <a class="tagsm" href="https://www.qobuz.com" target="_blank" rel="noopener">on Qobuz &#8599;</a>
+</header>
+
+<main>
+<section class="hero">
+  <p class="kicker">Susvara Unveiled &middot; Woo Audio WA33</p>
+  <h1>Music that shows what a <em>summit-fi</em> system can do.</h1>
+  <p class="lede">A curated library of reference tracks for critical listening. Pulled from what summit-gear owners recommend across the headphone forums, then scored track by track on the six things a great system reveals &mdash; voice, soundstage, dynamics, bass, transient attack, and timbre.</p>
+  <div class="stats">
+    <span class="stat"><b>__TOTAL__</b> tracks</span>
+    <span class="stat"><b>__GENRES__</b> genres</span>
+    <span class="stat"><b>3</b> listening profiles</span>
+    <span class="stat">scored by <b>TypeSafe Jev</b></span>
+    <span class="stat">mean confidence <b>__MEANCONF__</b></span>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="dl-h">
+  <p class="eyebrow">Download &amp; import</p>
+  <h2 id="dl-h">Playlists</h2>
+  <p class="sub">Grab the whole library or a single genre as a CSV, then import it into Qobuz with Soundiiz or TuneMyMusic. Each file has title, artist and album columns.</p>
+  <div class="dlbig">
+    <div>
+      <div class="lbl">Complete library</div>
+      <div class="meta">All __TOTAL__ reference tracks, every genre</div>
+    </div>
+    <a class="btn" href="csv/summit-fi-all.csv" download>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+      Download CSV
+    </a>
+  </div>
+  <div class="chips" id="genreDownloads"></div>
+  <p class="note">Prefer a shorter set? The three ranked top-10s below each have their own download. New to CSV import? In Soundiiz: Playlists &rarr; Import Playlist &rarr; From File.</p>
+</section>
+
+<section class="section" aria-labelledby="pk-h">
+  <p class="eyebrow">Curated picks</p>
+  <h2 id="pk-h">Three ways to listen</h2>
+  <p class="sub">The same library, ranked three ways. Each profile weights the six dimensions differently and caps genres so no single style dominates.</p>
+  <div class="cards" id="profileCards"></div>
+</section>
+
+<section class="section" id="library" aria-labelledby="lib-h">
+  <p class="eyebrow">The full library</p>
+  <h2 id="lib-h">All __TOTAL__ tracks</h2>
+  <p class="sub">Search, filter by genre, and sort by any column. Scores are the composite for the selected profile. Every track links to a Qobuz search &mdash; open it to check for a hi-res edition.</p>
+  <div class="controls">
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="search" id="search" placeholder="Search title or artist&hellip;" aria-label="Search tracks by title or artist" autocomplete="off">
+    </div>
+    <div class="pfsel" id="pfsel" role="group" aria-label="Score profile"></div>
+  </div>
+  <div class="gfilter" id="gfilter" role="group" aria-label="Filter by genre"></div>
+  <p class="count" id="count" role="status" aria-live="polite"></p>
+  <div class="tablecard">
+    <div class="tscroll">
+      <table>
+        <thead>
+          <tr id="headrow"></tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <div class="empty" id="empty" hidden>No tracks match. Try another genre or clear the search.</div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="cols">
+    <div>
+      <h4>How this library was built</h4>
+      Reference tracks were harvested from headphone-community threads (HiFi Guides, headphones.com, Reddit), deduplicated, and given short recording notes researched against Wikipedia, Discogs and MusicBrainz. A TypeSafe Jev model then scored each track 0&ndash;1 on six listening dimensions; plain code combines those into the per-profile composite you sort by here. Mean model confidence across the set is __MEANCONF__.
+    </div>
+    <div>
+      <h4>About the Qobuz links</h4>
+      Each link runs a Qobuz <em>search</em> for the title and artist &mdash; it is not a verified hi-res URL. Availability and maximum resolution vary by region and label, so open the link and check the badge on the release before adding it.
+    </div>
+  </div>
+  <p class="fine">summit-fi is a personal listening reference, not affiliated with Qobuz, HiFiMan or Woo Audio. Track selections reflect forum opinion and model scoring, not measurement.</p>
+</footer>
+
+</div>
+
+<script>
+const ROWS = __ROWS__;
+// row = [title,artist,album,genre,best, scShowcase,scTube,scStress, rkShowcase,rkTube,rkStress, listen]
+const GENRE_ORDER = ["jazz","vocal","classical","acoustic","pop","rock","electronic","other"];
+const PROFILES = [
+  {key:"sc",label:"Showcase",name:"Showcase",idx:5,rank:8,file:"csv/summit-fi-showcase-top10.csv",
+   desc:"Balanced. Every strength gets a track — the set to reach for first."},
+  {key:"tm",label:"Tube Magic",name:"Tube Magic",idx:6,rank:9,file:"csv/summit-fi-tubemagic-top10.csv",
+   desc:"Voices, tone and space — what the WA33's tubes are loved for."},
+  {key:"st",label:"Stress Test",name:"Stress Test",idx:7,rank:10,file:"csv/summit-fi-stresstest-top10.csv",
+   desc:"Loudness swings, deep bass and fast attacks — push the rig."},
+];
+const cap = s => s.charAt(0).toUpperCase()+s.slice(1);
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const qobuz = (t,a) => "https://www.qobuz.com/us-en/search?q="+encodeURIComponent(t+" "+a);
+
+const state = {q:"",genre:"all",profile:0,sortKey:"score",dir:-1};
+const counts = {}; GENRE_ORDER.forEach(g=>counts[g]=0);
+ROWS.forEach(r=>counts[r[3]]=(counts[r[3]]||0)+1);
+
+const COLS = [
+  {key:"title",label:"Track"},{key:"artist",label:"Artist"},{key:"genre",label:"Genre"},
+  {key:"best",label:"Best at"},{key:"score",label:"Score",num:true},{key:"none",label:"Qobuz"},
+];
+
+function sortVal(r,key){
+  const P=PROFILES[state.profile];
+  if(key==="title")return r[0].toLowerCase();
+  if(key==="artist")return r[1].toLowerCase();
+  if(key==="genre")return r[3];
+  if(key==="best")return r[4];
+  if(key==="score")return r[P.idx];
+  return 0;
+}
+function filtered(){
+  const q=state.q.trim().toLowerCase();
+  let list=ROWS.filter(r=>{
+    if(state.genre!=="all"&&r[3]!==state.genre)return false;
+    if(q&&!(r[0].toLowerCase().includes(q)||r[1].toLowerCase().includes(q)))return false;
+    return true;
+  });
+  if(state.sortKey!=="none"){
+    const k=state.sortKey,d=state.dir;
+    list=list.slice().sort((a,b)=>{const x=sortVal(a,k),y=sortVal(b,k);
+      if(x<y)return -d; if(x>y)return d; return a[0].toLowerCase()<b[0].toLowerCase()?-1:1;});
+  }
+  return list;
+}
+
+function renderHead(){
+  const P=PROFILES[state.profile];
+  document.getElementById("headrow").innerHTML = COLS.map(c=>{
+    const label = c.key==="score" ? P.label+" score" : c.label;
+    const ar = state.sortKey===c.key ? (state.dir>0?"↑":"↓") : "";
+    const sortable = c.key!=="none";
+    const aria = !sortable ? "" : state.sortKey===c.key ? (state.dir>0?' aria-sort="ascending"':' aria-sort="descending"') : ' aria-sort="none"';
+    return `<th class="${c.num?"num":""}" scope="col"${aria}>`+
+      (sortable
+        ? `<button data-sort="${c.key}">${esc(label)} <span class="ar" aria-hidden="true">${ar}</span></button>`
+        : `<button data-sort="none" aria-disabled="true">${esc(label)}</button>`)+
+      `</th>`;
+  }).join("");
+  document.querySelectorAll("#headrow button[data-sort]").forEach(b=>{
+    b.addEventListener("click",()=>{
+      const k=b.dataset.sort; if(k==="none")return;
+      if(state.sortKey===k)state.dir=-state.dir; else {state.sortKey=k;state.dir=(k==="score")?-1:1;}
+      renderHead(); renderBody();
+    });
+  });
+}
+function renderBody(){
+  const P=PROFILES[state.profile];
+  const list=filtered();
+  const tb=document.getElementById("tbody");
+  tb.innerHTML=list.map(r=>{
+    const lf = r[11] ? `<div class="lf">${esc(r[11])}</div>` : "";
+    return `<tr>
+      <td><div class="ti">${esc(r[0])}</div>${r[2]?`<div class="al">${esc(r[2])}</div>`:""}${lf}</td>
+      <td class="arname">${esc(r[1])}</td>
+      <td><span class="gtag">${esc(r[3])}</span></td>
+      <td class="best">${esc(r[4])}</td>
+      <td class="sc">${r[P.idx].toFixed(2)}</td>
+      <td><a class="qb" href="${qobuz(r[0],r[1])}" target="_blank" rel="noopener">Qobuz <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></a></td>
+    </tr>`;
+  }).join("");
+  document.getElementById("empty").hidden = list.length>0;
+  document.getElementById("count").textContent = list.length+" of "+ROWS.length+" tracks";
+}
+function renderGenreDownloads(){
+  document.getElementById("genreDownloads").innerHTML = GENRE_ORDER.filter(g=>counts[g]>0).map(g=>
+    `<a class="chip" href="csv/summit-fi-${g}.csv" download>${cap(g)} <span class="c">${counts[g]}</span></a>`).join("");
+}
+function renderFilters(){
+  const items=[{key:"all",label:"All",count:ROWS.length}].concat(
+    GENRE_ORDER.filter(g=>counts[g]>0).map(g=>({key:g,label:cap(g),count:counts[g]})));
+  document.getElementById("gfilter").innerHTML=items.map(it=>
+    `<button class="gf" data-g="${it.key}" aria-pressed="${state.genre===it.key}">${it.label} <span class="c">${it.count}</span></button>`).join("");
+  document.querySelectorAll("#gfilter button").forEach(b=>b.addEventListener("click",()=>{
+    state.genre=b.dataset.g;
+    document.querySelectorAll("#gfilter button").forEach(x=>x.setAttribute("aria-pressed",x.dataset.g===state.genre));
+    renderBody();
+  }));
+}
+function renderProfileTabs(){
+  document.getElementById("pfsel").innerHTML=PROFILES.map((p,i)=>
+    `<button data-p="${i}" aria-pressed="${state.profile===i}">${p.label}</button>`).join("");
+  document.querySelectorAll("#pfsel button").forEach(b=>b.addEventListener("click",()=>{
+    state.profile=+b.dataset.p; state.sortKey="score"; state.dir=-1;
+    document.querySelectorAll("#pfsel button").forEach(x=>x.setAttribute("aria-pressed",+x.dataset.p===state.profile));
+    renderHead(); renderBody();
+  }));
+}
+function renderCards(){
+  document.getElementById("profileCards").innerHTML=PROFILES.map(p=>{
+    const top=ROWS.filter(r=>r[p.rank]>0).sort((a,b)=>a[p.rank]-b[p.rank]);
+    const items=top.map(r=>`<li><span class="rk">${r[p.rank]}</span><span><span class="tt">${esc(r[0])}</span> <span class="ar">&mdash; ${esc(r[1])}</span></span></li>`).join("");
+    return `<div class="card"><h3>${p.name}</h3><p class="desc">${esc(p.desc)}</p><ol class="tl">${items}</ol><a class="btn ghost" href="${p.file}" download>Download top 10</a></div>`;
+  }).join("");
+}
+
+document.getElementById("search").addEventListener("input",e=>{state.q=e.target.value;renderBody();});
+renderGenreDownloads(); renderCards(); renderProfileTabs(); renderFilters(); renderHead(); renderBody();
+</script>
+</body>
+</html>

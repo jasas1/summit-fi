@@ -14,9 +14,27 @@ per-profile CSV downloads, and a Qobuz search link on every track.
 ## Contents
 
 - `index.html` — the whole site (self-contained: styles, data and logic inline).
-- `csv/` — importable playlists (title, artist, album): the complete library,
-  one file per genre, and the three top-10s. Import at Soundiiz or TuneMyMusic.
+  **Generated** — do not hand-edit; change `template.html` and re-run the script.
+- `template.html` — the design, with `__ROWS__`, `__TOTAL__`, `__GENRES__` and
+  `__MEANCONF__` placeholders. Edit this for design changes.
+- `regenerate.py` — rebuilds `index.html` and every CSV from the trackpicker data.
+- `csv/` — **generated** importable playlists (title, artist, album): the complete
+  library, one file per genre, and the three top-10s. Import at Soundiiz or TuneMyMusic.
 - `.nojekyll` — serve files as-is on GitHub Pages.
+
+## Regenerating
+
+When the trackpicker pool or scores change, refresh the site data in one command:
+
+```bash
+python3 regenerate.py
+```
+
+It reads `~/DEV/trackpicker/data/full` (candidates + Jev scores) plus the profiles,
+recomputes the rows, per-profile top-10s and the header stats, and rewrites
+`index.html` and `csv/`. Point it elsewhere with `TRACKPICKER=/path/to/trackpicker`.
+Run `trackpicker.py --set full score` first if scores are stale. Then commit and push
+to deploy.
 
 ## Notes
 
