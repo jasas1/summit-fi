@@ -132,7 +132,10 @@ tbody tr:hover{background:var(--surface2)}
 .q.hires{color:var(--gold)}
 .q.cd{color:var(--muted)}
 .q.none{color:var(--faint)}
-.count{color:var(--faint);font-size:13px;margin:14px 2px 0;font-family:var(--mono)}
+.tabletop{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:14px 2px 12px}
+.count{color:var(--faint);font-size:13px;margin:0;font-family:var(--mono)}
+#dlFiltered{padding:9px 14px;font-size:13.5px}
+#dlFiltered[disabled]{opacity:.4;cursor:not-allowed}
 .empty{padding:40px;text-align:center;color:var(--faint)}
 
 .foot{padding:48px 0 64px;border-top:1px solid var(--border);color:var(--muted);font-size:14px;line-height:1.65}
@@ -210,7 +213,10 @@ tbody tr:hover{background:var(--surface2)}
     <div class="pfsel" id="pfsel" role="group" aria-label="Score profile"></div>
   </div>
   <div class="gfilter" id="gfilter" role="group" aria-label="Filter by genre"></div>
-  <p class="count" id="count" role="status" aria-live="polite"></p>
+  <div class="tabletop">
+    <p class="count" id="count" role="status" aria-live="polite"></p>
+    <button class="btn ghost" id="dlFiltered">Download these</button>
+  </div>
   <div class="tablecard">
     <div class="tscroll">
       <table>
@@ -336,6 +342,32 @@ function renderBody(){
   }).join("");
   document.getElementById("empty").hidden = list.length>0;
   document.getElementById("count").textContent = list.length+" of "+ROWS.length+" tracks";
+  const dl=document.getElementById("dlFiltered");
+  dl.textContent = list.length===ROWS.length ? "Download all "+list.length : "Download these "+list.length;
+  dl.disabled = list.length===0;
+}
+
+function csvCell(s){ s=String(s==null?"":s); return /[",\n]/.test(s) ? '"'+s.replace(/"/g,'""')+'"' : s; }
+function filteredCsv(list){
+  return "title,artist,album\n" + list.map(r=>[r[0],r[1],r[2]].map(csvCell).join(",")).join("\n") + "\n";
+}
+function filteredFilename(){
+  const parts=["summit-fi"];
+  if(state.genre!=="all") parts.push(state.genre);
+  if(state.hiresOnly) parts.push("hires");
+  if(state.q.trim()) parts.push("search");
+  if(parts.length===1) parts.push("custom");
+  return parts.join("-")+".csv";
+}
+function downloadFiltered(){
+  const list=filtered();
+  if(!list.length) return;
+  const blob=new Blob([filteredCsv(list)],{type:"text/csv;charset=utf-8"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url; a.download=filteredFilename();
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 function renderGenreDownloads(){
   document.getElementById("genreDownloads").innerHTML = GENRE_ORDER.filter(g=>counts[g]>0).map(g=>
@@ -370,6 +402,7 @@ function renderCards(){
 }
 
 document.getElementById("search").addEventListener("input",e=>{state.q=e.target.value;renderBody();});
+document.getElementById("dlFiltered").addEventListener("click",downloadFiltered);
 document.getElementById("hiresToggle").addEventListener("click",e=>{
   state.hiresOnly=!state.hiresOnly; e.currentTarget.setAttribute("aria-pressed",state.hiresOnly); renderBody();
 });
