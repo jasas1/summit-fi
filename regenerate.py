@@ -20,7 +20,18 @@ import csv
 import json
 import os
 import sys
+import urllib.parse
 from pathlib import Path
+
+
+def qobuz_search_url(title: str, artist: str) -> str:
+    return "https://www.qobuz.com/us-en/search?q=" + urllib.parse.quote(f"{title} {artist}")
+
+
+def short_badge(bit_depth, sample_rate, hires: bool) -> str:
+    if not bit_depth or not sample_rate:
+        return ""
+    return ("Hi-Res " if hires else "") + f"{bit_depth}/{sample_rate}"
 
 HERE = Path(__file__).resolve().parent
 TRACKPICKER = Path(os.environ.get("TRACKPICKER", Path.home() / "DEV" / "trackpicker"))
@@ -68,8 +79,16 @@ def main() -> int:
         for i, picked in enumerate(tp.pick(tracks, scores, profiles[p["key"]], 10), 1):
             ranks.setdefault(picked["track"]["id"], {})[p["key"]] = i
 
-    # rows: [title, artist, album, genre, best, sc0, sc1, sc2, rk0, rk1, rk2, listen]
+    # Qobuz resolutions (optional): direct links + real quality where resolved.
+    qobuz = {}
+    qpath = data / "qobuz.json"
+    if qpath.exists():
+        qobuz = json.loads(qpath.read_text())
+
+    # rows: [title, artist, album, genre, best, sc0, sc1, sc2, rk0, rk1, rk2, listen,
+    #        qobuz_url, quality_badge, direct(0/1), hires(0/1)]
     rows = []
+    direct_n = hires_n = 0
     for t in tracks:
         entry = scores[t["id"]]
         dims = entry["dimensions"]
@@ -79,10 +98,21 @@ def main() -> int:
         listen = (t.get("listen_for") or "").strip()
         if len(listen) > 170:
             listen = listen[:167].rsplit(" ", 1)[0] + "…"
+
+        q = qobuz.get(t["id"], {})
+        if q.get("status") == "resolved":
+            url = q["url"]
+            badge = short_badge(q.get("bit_depth"), q.get("sample_rate"), q.get("hires"))
+            direct, hires = 1, (1 if q.get("hires") else 0)
+            direct_n += 1
+            hires_n += hires
+        else:  # low-confidence, not-found, error, or unresolved -> Qobuz search fallback
+            url, badge, direct, hires = qobuz_search_url(t["title"], t["artist"]), "", 0, 0
+
         rows.append([t["title"], t["artist"], t.get("album") or "", t["genre"], labels[best],
                      comps[0], comps[1], comps[2],
                      rk.get(PROFILES[0]["key"], 0), rk.get(PROFILES[1]["key"], 0), rk.get(PROFILES[2]["key"], 0),
-                     listen])
+                     listen, url, badge, direct, hires])
 
     # stats
     total = len(rows)
@@ -113,12 +143,16 @@ def main() -> int:
            .replace("__ROWS__", json.dumps(rows, ensure_ascii=False, separators=(",", ":")))
            .replace("__TOTAL__", str(total))
            .replace("__GENRES__", str(len(present)))
-           .replace("__MEANCONF__", mean_conf))
-    if "__ROWS__" in out or "__TOTAL__" in out:
-        die("template still has unfilled placeholders")
+           .replace("__MEANCONF__", mean_conf)
+           .replace("__DIRECT__", str(direct_n))
+           .replace("__HIRES__", str(hires_n)))
+    for ph in ("__ROWS__", "__TOTAL__", "__GENRES__", "__MEANCONF__", "__DIRECT__", "__HIRES__"):
+        if ph in out:
+            die(f"template still has unfilled placeholder {ph}")
     (HERE / "index.html").write_text(out, encoding="utf-8")
 
     print(f"regenerated: {total} tracks, {len(present)} genres, mean confidence {mean_conf}")
+    print(f"  Qobuz: {direct_n} direct links ({hires_n} hi-res), {total - direct_n} search fallback")
     print(f"  index.html + {1 + len(present) + len(PROFILES)} CSVs written")
     return 0
 

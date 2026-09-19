@@ -114,8 +114,15 @@ tbody tr:hover{background:var(--surface2)}
 .best{color:var(--teal);font-size:13px;white-space:nowrap}
 .sc{font-family:var(--mono);font-weight:700;color:var(--text);text-align:right}
 .num{text-align:right}
-.qb{display:inline-flex;align-items:center;gap:6px;color:var(--gold);font-size:13px;font-weight:600;white-space:nowrap}
+.qb{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;white-space:nowrap}
+.qb.direct{color:var(--gold)}
+.qb.search{color:var(--muted)}
+.qb.search:hover{color:var(--text)}
 .qb svg{width:13px;height:13px}
+.q{font-family:var(--mono);font-size:12px;white-space:nowrap}
+.q.hires{color:var(--gold)}
+.q.cd{color:var(--muted)}
+.q.none{color:var(--faint)}
 .count{color:var(--faint);font-size:13px;margin:14px 2px 0;font-family:var(--mono)}
 .empty{padding:40px;text-align:center;color:var(--faint)}
 
@@ -151,6 +158,8 @@ tbody tr:hover{background:var(--surface2)}
     <span class="stat"><b>3</b> listening profiles</span>
     <span class="stat">scored by <b>TypeSafe Jev</b></span>
     <span class="stat">mean confidence <b>__MEANCONF__</b></span>
+    <span class="stat"><b>__DIRECT__</b> direct Qobuz links</span>
+    <span class="stat"><b>__HIRES__</b> hi-res</span>
   </div>
 </section>
 
@@ -182,12 +191,13 @@ tbody tr:hover{background:var(--surface2)}
 <section class="section" id="library" aria-labelledby="lib-h">
   <p class="eyebrow">The full library</p>
   <h2 id="lib-h">All __TOTAL__ tracks</h2>
-  <p class="sub">Search, filter by genre, and sort by any column. Scores are the composite for the selected profile. Every track links to a Qobuz search &mdash; open it to check for a hi-res edition.</p>
+  <p class="sub">Search, filter by genre, and sort by any column. Scores are the composite for the selected profile. Where a track resolved to a Qobuz release its link plays that track directly and shows the real quality; the rest fall back to a Qobuz search.</p>
   <div class="controls">
     <div class="search">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
       <input type="search" id="search" placeholder="Search title or artist&hellip;" aria-label="Search tracks by title or artist" autocomplete="off">
     </div>
+    <button class="gf" id="hiresToggle" aria-pressed="false" title="Show only tracks with a hi-res Qobuz link">Hi-Res only</button>
     <div class="pfsel" id="pfsel" role="group" aria-label="Score profile"></div>
   </div>
   <div class="gfilter" id="gfilter" role="group" aria-label="Filter by genre"></div>
@@ -214,7 +224,7 @@ tbody tr:hover{background:var(--surface2)}
     </div>
     <div>
       <h4>About the Qobuz links</h4>
-      Each link runs a Qobuz <em>search</em> for the title and artist &mdash; it is not a verified hi-res URL. Availability and maximum resolution vary by region and label, so open the link and check the badge on the release before adding it.
+      A <b>Play</b> link goes straight to a Qobuz release that a TypeSafe Jev match confidently identified as the same recording; its quality badge is read from Qobuz metadata, not guessed. A <b>Search</b> link means no confident match &mdash; usually a classical work with many recordings &mdash; so it opens a Qobuz search to browse. Region and label still affect availability; check the release before adding it.
     </div>
   </div>
   <p class="fine">summit-fi is a personal listening reference, not affiliated with Qobuz, HiFiMan or Woo Audio. Track selections reflect forum opinion and model scoring, not measurement.</p>
@@ -238,13 +248,14 @@ const cap = s => s.charAt(0).toUpperCase()+s.slice(1);
 const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const qobuz = (t,a) => "https://www.qobuz.com/us-en/search?q="+encodeURIComponent(t+" "+a);
 
-const state = {q:"",genre:"all",profile:0,sortKey:"score",dir:-1};
+const state = {q:"",genre:"all",profile:0,sortKey:"score",dir:-1,hiresOnly:false};
 const counts = {}; GENRE_ORDER.forEach(g=>counts[g]=0);
 ROWS.forEach(r=>counts[r[3]]=(counts[r[3]]||0)+1);
 
 const COLS = [
   {key:"title",label:"Track"},{key:"artist",label:"Artist"},{key:"genre",label:"Genre"},
-  {key:"best",label:"Best at"},{key:"score",label:"Score",num:true},{key:"none",label:"Qobuz"},
+  {key:"best",label:"Best at"},{key:"score",label:"Score",num:true},
+  {key:"quality",label:"Quality"},{key:"none",label:"Qobuz"},
 ];
 
 function sortVal(r,key){
@@ -254,12 +265,14 @@ function sortVal(r,key){
   if(key==="genre")return r[3];
   if(key==="best")return r[4];
   if(key==="score")return r[P.idx];
+  if(key==="quality")return r[15]*2 + r[14];  // hi-res, then direct, then search
   return 0;
 }
 function filtered(){
   const q=state.q.trim().toLowerCase();
   let list=ROWS.filter(r=>{
     if(state.genre!=="all"&&r[3]!==state.genre)return false;
+    if(state.hiresOnly&&r[15]!==1)return false;
     if(q&&!(r[0].toLowerCase().includes(q)||r[1].toLowerCase().includes(q)))return false;
     return true;
   });
@@ -298,13 +311,18 @@ function renderBody(){
   const tb=document.getElementById("tbody");
   tb.innerHTML=list.map(r=>{
     const lf = r[11] ? `<div class="lf">${esc(r[11])}</div>` : "";
+    const qual = r[13] ? `<span class="q ${r[15]?"hires":"cd"}">${esc(r[13])}</span>` : `<span class="q none">&mdash;</span>`;
+    const direct = r[14]===1;
+    const label = direct ? "Play" : "Search";
+    const alabel = direct ? `Play ${esc(r[0])} on Qobuz` : `Search Qobuz for ${esc(r[0])}`;
     return `<tr>
       <td><div class="ti">${esc(r[0])}</div>${r[2]?`<div class="al">${esc(r[2])}</div>`:""}${lf}</td>
       <td class="arname">${esc(r[1])}</td>
       <td><span class="gtag">${esc(r[3])}</span></td>
       <td class="best">${esc(r[4])}</td>
       <td class="sc">${r[P.idx].toFixed(2)}</td>
-      <td><a class="qb" href="${qobuz(r[0],r[1])}" target="_blank" rel="noopener">Qobuz <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></a></td>
+      <td>${qual}</td>
+      <td><a class="qb ${direct?"direct":"search"}" href="${r[12]}" target="_blank" rel="noopener" aria-label="${alabel}">${label} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></a></td>
     </tr>`;
   }).join("");
   document.getElementById("empty").hidden = list.length>0;
@@ -343,6 +361,9 @@ function renderCards(){
 }
 
 document.getElementById("search").addEventListener("input",e=>{state.q=e.target.value;renderBody();});
+document.getElementById("hiresToggle").addEventListener("click",e=>{
+  state.hiresOnly=!state.hiresOnly; e.currentTarget.setAttribute("aria-pressed",state.hiresOnly); renderBody();
+});
 renderGenreDownloads(); renderCards(); renderProfileTabs(); renderFilters(); renderHead(); renderBody();
 </script>
 </body>
