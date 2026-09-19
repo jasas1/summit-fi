@@ -97,7 +97,15 @@ h2{font-family:var(--serif);font-weight:600;font-size:clamp(24px,4vw,30px);lette
 
 .tablecard{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden}
 .tscroll{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:14px;min-width:720px}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:760px;table-layout:fixed}
+/* desktop column widths: give the track + listening note room, let artist wrap */
+thead th:nth-child(1),tbody td:nth-child(1){width:40%}
+thead th:nth-child(2),tbody td:nth-child(2){width:15%}
+thead th:nth-child(3),tbody td:nth-child(3){width:9%}
+thead th:nth-child(4),tbody td:nth-child(4){width:11%}
+thead th:nth-child(5),tbody td:nth-child(5){width:9%}
+thead th:nth-child(6),tbody td:nth-child(6){width:9%}
+thead th:nth-child(7),tbody td:nth-child(7){width:7%}
 thead th{background:var(--surface2);text-align:left;padding:0;border-bottom:1px solid var(--border2)}
 thead th button{width:100%;background:none;border:none;color:var(--muted);font-weight:600;font-size:12px;letter-spacing:.04em;text-transform:uppercase;text-align:left;padding:13px 14px;display:flex;align-items:center;gap:6px;font-family:inherit;cursor:pointer}
 thead th button:hover{color:var(--text)}
@@ -108,8 +116,9 @@ tbody tr:last-child td{border-bottom:none}
 tbody tr:hover{background:var(--surface2)}
 .ti{color:var(--text);font-weight:600}
 .al{color:var(--faint);font-size:12px;margin-top:2px}
-.lf{color:var(--muted);font-size:12.5px;margin-top:5px;max-width:44ch;line-height:1.45}
-.arname{color:var(--muted);white-space:nowrap}
+.ti{overflow-wrap:anywhere}
+.lf{color:var(--muted);font-size:12.5px;margin-top:5px;max-width:60ch;line-height:1.5}
+.arname{color:var(--muted);overflow-wrap:break-word}
 .gtag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:3px 8px;border-radius:6px;background:var(--raised);color:var(--muted)}
 .best{color:var(--teal);font-size:13px;white-space:nowrap}
 .sc{font-family:var(--mono);font-weight:700;color:var(--text);text-align:right}
